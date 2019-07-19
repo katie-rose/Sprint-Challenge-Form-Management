@@ -2,11 +2,17 @@ import React from "react";
 import { withFormik, Form, Field } from "formik";
 import axios from "axios";
 import * as Yup from "yup";
-import "./style.css";
+import { Redirect } from "react-router-dom";
+import "./form.css";
 
 window.axios = axios;
 
-function RegForm({ errors, touched, isSubmitting }) {
+function RegForm({ errors, touched, isSubmitting, setToken }) {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      return <Redirect to="/data" />;
+    }
   return (
     <Form className="login-form">
       <h2>Create User</h2>
@@ -62,14 +68,17 @@ export default withFormik({
       check: false
     };
   },
+
   handleSubmit: (values, formikBag) => {
+    const {setToken} = formikBag.props;
     formikBag.resetForm();
     console.log("FORM SUCCESSFULLY SUBMITTED");
     const url = "http://localhost:5000/api/register";
     formikBag.setSubmitting(true);
+    console.log(formikBag)
     axios.post(url, values).then(response => {
-      console.log(response.data);
-      // window.alert("Form submitted " + response.data.username);
+      console.log(response.data)
+      setToken(response.data.token);
       formikBag.setSubmitting(false);
     });
   },

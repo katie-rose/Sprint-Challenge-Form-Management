@@ -80,9 +80,9 @@ and the response object will look like this:
 }
 ```
 
-- [ ] Write a custom hook that can set and retrieve this token to and from local storage
+- [x] Write a custom hook that can set and retrieve this token to and from local storage
 
-- [ ] A GET request made with the token to `http://localhost:5000/api/restricted/data` to retrieve protected data
+- [x] A GET request made with the token to `http://localhost:5000/api/restricted/data` to retrieve protected data
 
 - [ ] Map over the array of objects you recieve and render some or all of it's information to the DOM.
 
